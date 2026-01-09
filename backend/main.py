@@ -14,7 +14,7 @@ app = FastAPI(title="Full Stack Todo API", version="1.0.0")
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=["http://localhost:3008", "http://127.0.0.1:3008"],  # Specific frontend origin
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,7 +36,11 @@ def on_startup():
 # Root endpoint
 @app.get("/")
 def read_root():
-    return {"message": "Full Stack Todo API is running"}
+    return {"message": "Full Stack Todo API is running", "allowed_origins": settings.ALLOWED_ORIGINS}
+
+@app.get("/debug/cors")
+def debug_cors():
+    return {"allowed_origins": settings.ALLOWED_ORIGINS}
 
 # Health check endpoint
 @app.get("/health")

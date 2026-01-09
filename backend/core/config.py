@@ -15,8 +15,10 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:3000",  # Next.js default port
         "http://localhost:3001",  # Next.js alternative port when 3000 is busy
+        "http://localhost:3008",  # Next.js port when others are busy
         "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001"
+        "http://127.0.0.1:3001",
+        "http://127.0.0.1:3008"
     ]
 
     # Frontend URL
