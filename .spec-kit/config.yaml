@@ -1,0 +1,29 @@
+# Spec Kit Configuration
+
+project_name: "Full Stack Web Application"
+version: "1.0.0"
+spec_directory: "specs"
+output_directories:
+  - "frontend"
+  - "backend"
+tech_stack:
+  frontend:
+    - "Next.js 16+"
+    - "TypeScript"
+    - "Tailwind CSS"
+    - "Better Auth"
+  backend:
+    - "Python"
+    - "FastAPI"
+    - "SQLModel"
+    - "PostgreSQL"
+    - "JWT"
+architecture:
+  pattern: "Monorepo"
+  layers:
+    - "Presentation (Frontend)"
+    - "Application (Backend)"
+    - "Data (Database)"
+security:
+  auth_method: "JWT with Better Auth"
+  db_encryption: "Required for sensitive data"
