@@ -61,7 +61,7 @@ export default function TasksPage() {
     }
   };
 
-  const toggleTaskCompletion = async (taskId: string, currentStatus: boolean) => {
+  const toggleTaskCompletion = async (taskId: string, currentStatus: boolean, callback?: () => void) => {
     try {
       const updatedTask = await apiClient.updateTask(taskId, { completed: !currentStatus });
       setTasks(
@@ -72,6 +72,10 @@ export default function TasksPage() {
     } catch (err: any) {
       setError(err.message || 'Failed to update task');
       console.error(err);
+    } finally {
+      if (callback) {
+        callback();
+      }
     }
   };
 
@@ -97,14 +101,14 @@ export default function TasksPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <Header title="Task Management" onLogout={handleLogout} />
 
       <main className="max-w-7xl mx-auto py-8 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
-          <div className="text-center mb-10">
-            <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Manage Your Tasks</h1>
-            <p className="text-lg text-gray-600">Organize and track your daily activities</p>
+          <div className="text-center mb-10 animate-fade-in">
+            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-2">Manage Your Tasks</h1>
+            <p className="text-lg text-slate-300">Organize and track your daily activities</p>
           </div>
 
           {error && (

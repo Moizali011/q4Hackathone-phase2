@@ -28,9 +28,9 @@ export default function TaskForm({ onSubmit, initialData, isSubmitting }: TaskFo
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 animate-fade-in">
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="title" className="block text-sm font-medium bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-1">
           Task Title
         </label>
         <input
@@ -40,12 +40,12 @@ export default function TaskForm({ onSubmit, initialData, isSubmitting }: TaskFo
           value={formData.title}
           onChange={handleChange}
           required
-          className="input-field"
+          className="input-field bg-white/80 backdrop-blur-sm border-2 border-indigo-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
           placeholder="What do you need to do?"
         />
       </div>
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="description" className="block text-sm font-medium bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-1">
           Description
         </label>
         <textarea
@@ -54,15 +54,15 @@ export default function TaskForm({ onSubmit, initialData, isSubmitting }: TaskFo
           value={formData.description}
           onChange={handleChange}
           rows={4}
-          className="input-field"
+          className="input-field bg-white/80 backdrop-blur-sm border-2 border-indigo-200 rounded-xl py-3 px-4 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
           placeholder="Add more details..."
         />
       </div>
-      <div>
+      <div className="transform transition-transform duration-300 hover:scale-[1.02]">
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn-primary w-full py-3"
+          className="btn-primary w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center">

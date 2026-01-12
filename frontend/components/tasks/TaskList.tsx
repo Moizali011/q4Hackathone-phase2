@@ -11,7 +11,7 @@ interface Task {
 
 interface TaskListProps {
   tasks: Task[];
-  onToggle: (id: string, currentStatus: boolean) => void;
+  onToggle: (id: string, currentStatus: boolean, callback?: () => void) => void;
   onDelete: (id: string) => void;
   onEdit?: (task: Task) => void;
 }
@@ -30,15 +30,16 @@ export default function TaskList({ tasks, onToggle, onDelete, onEdit }: TaskList
   }
 
   return (
-    <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          onToggle={onToggle}
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
+    <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 rounded-xl p-2 bg-white/30 backdrop-blur-sm">
+      {tasks.map((task, index) => (
+        <div key={task.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+          <TaskItem
+            task={task}
+            onToggle={onToggle}
+            onDelete={onDelete}
+            onEdit={onEdit}
+          />
+        </div>
       ))}
     </div>
   );

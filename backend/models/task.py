@@ -12,7 +12,7 @@ class TaskBase(SQLModel):
 
 class Task(TaskBase, table=True):
     id: UUID = Field(default_factory=uuid4, primary_key=True)
-    user_id: UUID = Field(sa_column=Column(String, ForeignKey("user.id"), nullable=False))  # This should reference the User model
+    user_id: str = Field(sa_column=Column(String, ForeignKey("user.id"), nullable=False))  # This should reference the User model
     title: str = Field(sa_column=Column(String, nullable=False))
     description: Optional[str] = Field(sa_column=Column(Text))
     completed: bool = Field(default=False)
@@ -25,7 +25,7 @@ class TaskCreate(TaskBase):
 
 class TaskRead(TaskBase):
     id: UUID
-    user_id: UUID
+    user_id: str
     created_at: datetime
     updated_at: datetime
 

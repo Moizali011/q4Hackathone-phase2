@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session, select
 from typing import List
+from sqlalchemy import cast, String
 from database.database import get_session
 from models.task import Task, TaskCreate, TaskUpdate
 from schemas.task import TaskRead
 from auth.dependencies import get_current_user
+from uuid import UUID
 import uuid
 
 router = APIRouter()
@@ -51,7 +53,7 @@ def create_task(
 
 @router.get("/{task_id}", response_model=TaskRead)
 def get_task(
-    task_id: str,  # Changed from UUID to str to handle string IDs properly
+    task_id: UUID,  # Use UUID type to be more specific and avoid conflicts
     current_user: dict = Depends(get_current_user),
     session: Session = Depends(get_session)
 ):
@@ -59,8 +61,9 @@ def get_task(
     user_id = current_user["user_id"]
 
     # Query for the task with the given ID that belongs to the current user
+    # Compare UUID directly with UUID and user_id as string with string
     task = session.exec(
-        select(Task).where(Task.id == str(task_id), Task.user_id == str(user_id))
+        select(Task).where(Task.id == task_id, Task.user_id == str(user_id))
     ).first()
 
     if not task:
@@ -74,7 +77,7 @@ def get_task(
 
 @router.put("/{task_id}", response_model=TaskRead)
 def update_task(
-    task_id: str,  # Changed from UUID to str to handle string IDs properly
+    task_id: UUID,  # Use UUID type to be more specific and avoid conflicts
     task_update: TaskUpdate,
     current_user: dict = Depends(get_current_user),
     session: Session = Depends(get_session)
@@ -83,8 +86,9 @@ def update_task(
     user_id = current_user["user_id"]
 
     # Find the task that belongs to the current user
+    # Compare UUID directly with UUID and user_id as string with string
     db_task = session.exec(
-        select(Task).where(Task.id == str(task_id), Task.user_id == str(user_id))
+        select(Task).where(Task.id == task_id, Task.user_id == str(user_id))
     ).first()
 
     if not db_task:
@@ -107,7 +111,7 @@ def update_task(
 
 @router.delete("/{task_id}")
 def delete_task(
-    task_id: str,  # Changed from UUID to str to handle string IDs properly
+    task_id: UUID,  # Use UUID type to be more specific and avoid conflicts
     current_user: dict = Depends(get_current_user),
     session: Session = Depends(get_session)
 ):
@@ -115,8 +119,9 @@ def delete_task(
     user_id = current_user["user_id"]
 
     # Find the task that belongs to the current user
+    # Compare UUID directly with UUID and user_id as string with string
     task = session.exec(
-        select(Task).where(Task.id == str(task_id), Task.user_id == str(user_id))
+        select(Task).where(Task.id == task_id, Task.user_id == str(user_id))
     ).first()
 
     if not task:

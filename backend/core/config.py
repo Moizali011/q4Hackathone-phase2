@@ -16,12 +16,14 @@ class Settings(BaseSettings):
         "http://localhost:3000",  # Next.js default port
         "http://localhost:3001",  # Next.js alternative port when 3000 is busy
         "http://localhost:3008",  # Next.js port when others are busy
-        "http://127.0.0.1:3000",
-        "http://127.0.0.1:3001",
-        "http://127.0.0.1:3008"
+        "http://127.0.0.1:3000",  # Alternative localhost format
+        "http://127.0.0.1:3001",  # Alternative localhost format
+        "http://127.0.0.1:3008",  # Alternative localhost format
+        "http://localhost:3003",  # Additional port that might be used
+        "http://127.0.0.1:3003"  # Additional port that might be used
     ]
 
     # Frontend URL
-    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "http://localhost:3003")
+    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 settings = Settings()
