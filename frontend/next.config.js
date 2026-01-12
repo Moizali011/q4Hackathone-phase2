@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // This is for static export, remove if you need SSR
-  trailingSlash: true,
+  // Remove output: 'export' to allow API routes to work
+  trailingSlash: false,
   images: {
-    unoptimized: true // For static exports
+    unoptimized: false
   },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
