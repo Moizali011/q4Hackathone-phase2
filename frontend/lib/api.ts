@@ -113,7 +113,7 @@ class ApiClient {
         }
 
         // Attempt to parse error response
-        let errorData = {};
+        let errorData: any = {};
         try {
           errorData = await response.json();
         } catch (parseError) {
