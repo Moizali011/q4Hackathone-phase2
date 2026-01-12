@@ -1,25 +1,4 @@
 {
   "version": 2,
-  "framework": "nextjs",
-  "functions": {
-    "frontend/pages/**/*": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1",
-      "continue": true
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/",
-      "status": 200
-    }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "framework": "nextjs"
 }
