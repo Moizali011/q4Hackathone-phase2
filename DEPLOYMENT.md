@@ -119,24 +119,49 @@ NEXT_PUBLIC_API_URL=https://your-backend-domain.com
 
 ## Troubleshooting Vercel 404 Issues:
 
-1. **Check vercel.json configuration**:
-```json
-{
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/"
-    }
-  ]
-}
-```
+1. **Correct Vercel Configuration**:
+   - Use minimal vercel.json:
+   ```json
+   {
+     "version": 2,
+     "framework": "nextjs"
+   }
+   ```
+   - Don't over-configure routing, let Vercel handle Next.js automatically
 
-2. **Verify Next.js App Router**:
+2. **Next.js Configuration**:
+   - Use proper next.config.js for dynamic features:
+   ```javascript
+   /** @type {import('next').NextConfig} */
+   const nextConfig = {
+     trailingSlash: false,
+     images: {
+       unoptimized: false
+     },
+     env: {
+       NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+     },
+     async rewrites() {
+       return [
+         {
+           source: '/api/:path*',
+           destination: process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api/:path*` : 'http://localhost:8000/api/:path*',
+         },
+       ]
+     }
+   }
+
+   module.exports = nextConfig
+   ```
+
+3. **Verify Next.js App Router**:
    - Ensure your pages are in the correct `app/` directory structure
    - Check that you have proper layout.tsx and page.tsx files
+   - Make sure you're not using static export if you need API routes
 
-3. **API Route Issues**:
+4. **API Route Issues**:
    - If using API routes, make sure they're properly placed in `app/api/` for the App Router
+   - Backend API calls should be properly proxied through rewrites
 
 ## Build Commands:
 
