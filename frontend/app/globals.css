@@ -12,6 +12,12 @@
   --accent-500: 255, 119, 119; /* pink-400 */
 }
 
+.light {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 241, 245, 249; /* slate-100 */
+  --background-end-rgb: 226, 232, 240; /* slate-200 */
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -26,6 +32,14 @@ body {
 /* Dark mode specific overrides */
 body {
   @apply bg-slate-900 text-slate-100;
+}
+
+.dark body {
+  @apply bg-slate-900 text-slate-100;
+}
+
+.light body {
+  @apply bg-slate-100 text-slate-900;
 }
 
 /* Override input fields for dark mode */

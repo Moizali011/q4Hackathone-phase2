@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42; /* slate-900 */
+  --background-end-rgb: 30, 41, 59; /* slate-800 */
+}
+
+.light {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 241, 245, 249; /* slate-100 */
+  --background-end-rgb: 226, 232, 240; /* slate-200 */
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    );
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+/* Dark mode specific overrides */
+body {
+  @apply bg-slate-900 text-slate-100;
+}
+
+.dark body {
+  @apply bg-slate-900 text-slate-100;
+}
+
+.light body {
+  @apply bg-slate-100 text-slate-900;
+}

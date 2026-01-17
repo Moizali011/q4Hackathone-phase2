@@ -27,15 +27,15 @@ export default function HomePage() {
   if (!authChecked) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-100">
-        <div className="text-center">
-          <div className="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-2xl font-bold mb-6 animate-pulse">
-            T
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Task Manager</h1>
-          <p className="text-gray-600 mb-6">Loading...</p>
-          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600 mx-auto"></div>
+      <div className="text-center">
+        <div className="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-2xl font-bold mb-6 animate-pulse">
+          T
         </div>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Task Manager</h1>
+        <p className="text-gray-600 mb-6">Loading...</p>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600 mx-auto"></div>
       </div>
+    </div>
     );
   }
 

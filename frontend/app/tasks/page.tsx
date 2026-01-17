@@ -117,9 +117,34 @@ export default function TasksPage() {
             </div>
           )}
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Create Task Form */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* AI Assistant Card */}
             <div className="lg:col-span-1">
+              <div className="bg-gradient-to-br from-cyan-600 to-blue-700 p-6 rounded-2xl shadow-lg text-white h-full">
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center mb-4">
+                    <div className="p-2 bg-white/20 rounded-lg mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-bold">AI Task Assistant</h3>
+                  </div>
+                  <p className="text-cyan-100 mb-4 flex-grow">
+                    Chat with our AI assistant to manage your tasks using natural language.
+                  </p>
+                  <a
+                    href="/chat"
+                    className="mt-auto inline-flex items-center px-4 py-2 border border-white/30 rounded-lg text-white hover:bg-white/10 transition-colors text-center"
+                  >
+                    Open AI Chat
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Create Task Form */}
+            <div className="lg:col-span-2">
               <div className="bg-white p-6 rounded-2xl shadow-lg card">
                 <h2 className="text-xl font-bold text-gray-900 mb-6">Create New Task</h2>
                 <TaskForm
@@ -131,7 +156,7 @@ export default function TasksPage() {
             </div>
 
             {/* Task List */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-1">
               <div className="bg-white p-6 rounded-2xl shadow-lg card">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-bold text-gray-900">Your Tasks</h2>

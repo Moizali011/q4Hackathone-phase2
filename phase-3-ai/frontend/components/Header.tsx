@@ -2,16 +2,67 @@
 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useTheme } from '@/components/ThemeProvider';
+import { useEffect, useState } from 'react';
 
 interface HeaderProps {
   title: string;
-  onLogout: () => void;
+  onLogout?: () => void;
 }
 
 export default function Header({ title, onLogout }: HeaderProps) {
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+
+  useEffect(() => {
+    // Initialize theme from localStorage
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+    setTheme(initialTheme);
+    applyTheme(initialTheme);
+
+    // Listen for storage events to sync theme across tabs/windows
+    const handleStorageChange = () => {
+      const newTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+      if (newTheme && newTheme !== theme) {
+        setTheme(newTheme);
+        applyTheme(newTheme);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  const applyTheme = (theme: 'light' | 'dark') => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    } else {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    applyTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  const handleLogout = () => {
+    if (onLogout) {
+      onLogout();
+    } else {
+      localStorage.removeItem('access_token');
+      router.push('/auth');
+    }
+  };
 
   return (
     <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg">
@@ -20,7 +71,7 @@ export default function Header({ title, onLogout }: HeaderProps) {
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
               <div className="h-8 w-8 rounded-full bg-white text-indigo-600 flex items-center justify-center font-bold mr-2">
-                T
+                AI
               </div>
               <h1 className="text-xl font-bold text-white">{title}</h1>
             </div>
@@ -40,7 +91,7 @@ export default function Header({ title, onLogout }: HeaderProps) {
                 </Link>
                 <Link
                   href="/chat"
-                  className="text-white hover:bg-indigo-700 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
+                  className="text-white bg-indigo-800 px-3 py-2 rounded-md text-sm font-medium transition duration-200"
                 >
                   AI Chat
                 </Link>
@@ -67,7 +118,7 @@ export default function Header({ title, onLogout }: HeaderProps) {
 
             {/* Logout Button */}
             <button
-              onClick={onLogout}
+              onClick={handleLogout}
               className="px-4 py-2 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-300 transition duration-200 ease-in-out transform hover:scale-105"
             >
               Logout
