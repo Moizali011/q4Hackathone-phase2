@@ -10,18 +10,36 @@ This project implements a full-stack todo application enhanced with a natural la
 - **Real-time Sync**: Tasks update across all components instantly
 - **Dashboard**: Statistics and recent tasks overview
 - **Responsive UI**: Mobile-friendly design with dark/light themes
+- **Backend API**: Python FastAPI backend with secure authentication and task management
+- **Database Integration**: Persistent storage with PostgreSQL/SQLite support
 
 ## Getting Started
 
 ### Prerequisites
 - Node.js (v14 or higher)
 - npm or yarn
+- Python 3.9+
+- pip
 
-### Installation
-1. Clone the repository
-2. Navigate to the frontend directory
-3. Install dependencies: `npm install`
-4. Start the application: `npm run dev`
+### Backend Setup
+1. Navigate to the backend directory: `cd backend`
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment:
+   - On Windows: `venv\Scripts\activate`
+   - On macOS/Linux: `source venv/bin/activate`
+4. Install dependencies: `pip install -r requirements.txt`
+5. Create a `.env` file with the required environment variables (see backend README)
+6. Start the backend: `uvicorn main:app --reload`
+
+### Frontend Setup
+1. Navigate to the frontend directory: `cd frontend`
+2. Install dependencies: `npm install`
+3. Start the application: `npm run dev`
+
+### Complete Setup
+1. Start the backend server first
+2. In a separate terminal, start the frontend server
+3. Access the application at `http://localhost:3000`
 
 ### Available Commands
 - `npm run dev` - Start development server
@@ -37,6 +55,30 @@ This project implements a full-stack todo application enhanced with a natural la
 
 ## Project Structure
 ```
+├── backend/                  # Python FastAPI backend
+│   ├── api/                  # API route definitions
+│   │   ├── auth.py           # Authentication endpoints
+│   │   └── tasks.py          # Task management endpoints
+│   ├── auth/                 # Authentication utilities
+│   │   ├── jwt.py            # JWT utilities
+│   │   ├── dependencies.py   # Auth dependencies
+│   │   └── oauth.py          # OAuth implementation
+│   ├── models/               # Database models
+│   │   ├── user.py           # User model
+│   │   └── task.py           # Task model
+│   ├── schemas/              # Pydantic schemas
+│   │   ├── user.py           # User schemas
+│   │   └── task.py           # Task schemas
+│   ├── database/             # Database utilities
+│   │   ├── database.py       # Database connection
+│   │   └── init_db.py        # Database initialization
+│   ├── core/                 # Core configurations
+│   │   └── config.py         # Settings and configurations
+│   ├── utils/                # Utility functions
+│   │   └── security.py       # Security utilities
+│   ├── main.py               # Application entry point
+│   ├── requirements.txt      # Python dependencies
+│   └── README.md             # Backend documentation
 ├── frontend/                 # Next.js application
 │   ├── app/                  # Application routes
 │   │   ├── auth/             # Authentication pages
@@ -53,22 +95,30 @@ This project implements a full-stack todo application enhanced with a natural la
 │   │   └── TaskContext.tsx   # Global task state management
 │   ├── lib/                  # Utilities
 │   └── public/               # Static assets
+├── API_DOCS.md               # Backend API documentation
 ├── spec.md                   # Project specification
 ├── history.md                # Development history
+├── SUMMARY.md                # Project summary
+├── requirements.txt          # Combined project dependencies
 └── README.md                 # This file
 ```
 
 ## Architecture
-- **Global State**: TaskContext manages all task data across the application
+- **Backend**: Python FastAPI with SQLModel ORM and JWT authentication
+- **Frontend**: React Context API for state management with real-time synchronization
 - **Components**: Reusable components for task management and chat interface
-- **Persistence**: Tasks stored in localStorage with real-time synchronization
+- **Persistence**: Database storage with PostgreSQL/SQLite and real-time synchronization
+- **API Integration**: Frontend communicates with backend via REST API
 - **UI**: Consistent design system with gradient backgrounds and smooth animations
 
 ## Technologies Used
+- **Backend**: Python, FastAPI, SQLModel, SQLAlchemy, PostgreSQL/SQLite
 - **Frontend**: Next.js 14, React, TypeScript
 - **Styling**: Tailwind CSS
 - **State Management**: React Context API
-- **Storage**: localStorage for persistence
+- **Authentication**: JWT tokens, bcrypt password hashing
+- **Storage**: PostgreSQL/SQLite database
+- **API Communication**: REST API with fetch
 
 ## Contributing
 1. Fork the repository
